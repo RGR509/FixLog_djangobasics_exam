@@ -17,7 +17,7 @@ The project does not use login, registration, or Django User accounts, in line w
 
 - Python
 - Django
-- SQLite (recommended for local evaluation)
+- PostgreSQL (recommended for local evaluation)
 - Django Template Language
 - HTML and CSS
 
