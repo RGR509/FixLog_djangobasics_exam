@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FixLog | Repair Services{% endblock %}</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f5f7fa;
+            color: #263445;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e5eaf0;
+            padding: 18px 8%;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #2563eb;
+            text-decoration: none;
+            letter-spacing: -0.8px;
+        }
+
+        .logo span {
+            color: #263445;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #526174;
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover {
+            color: #2563eb;
+        }
+
+        main {
+            flex: 1;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 65px 5%;
+        }
+
+        footer {
+            background-color: #ffffff;
+            border-top: 1px solid #e5eaf0;
+            padding: 22px 8%;
+            color: #8491a2;
+            font-size: 13px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .footer-brand {
+            color: #263445;
+            font-weight: bold;
+        }
+
+        @media (max-width: 760px) {
+            header {
+                padding: 18px 5%;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 18px;
+            }
+
+            main {
+                padding: 40px 5%;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        {% block extra_css %}{% endblock %}
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <a href="{% url 'home' %}" class="logo">
+                Fix<span>Log</span>
+            </a>
+
+            <nav>
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'technicians_list' %}">Technicians</a>
+                <a href="{% url 'my_repair_tickets' %}">Repairs</a>
+                <a href="{% url 'inventory_list' %}">Inventory</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p class="footer-brand">FixLog &mdash; Repair Services</p>
+            <p>&copy; {% now "Y" %} FixLog. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,236 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Repair Ticket | FixLog{% endblock %}
+
+{% block extra_css %}
+<style>
+    .delete-repair-container,
+    .delete-repair-container * {
+        font-family: Arial, sans-serif;
+        box-sizing: border-box;
+    }
+
+    .delete-repair-container {
+        max-width: 850px;
+        margin: 0 auto;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-bottom: 22px;
+        color: #2563eb;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .back-link:hover {
+        text-decoration: underline;
+    }
+
+    .form-card {
+        overflow: hidden;
+        background: #fff;
+        border: 1px solid #e5eaf0;
+        border-radius: 16px;
+        box-shadow: 0 8px 25px rgba(38, 52, 69, 0.05);
+    }
+
+    .form-header {
+        padding: 30px 35px;
+        background: #fef2f2;
+        border-bottom: 1px solid #fecaca;
+    }
+
+    .form-header h1 {
+        margin: 0 0 10px;
+        color: #991b1b;
+        font-size: 28px;
+    }
+
+    .form-header p {
+        margin: 0;
+        color: #7f1d1d;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .form-body {
+        padding: 35px;
+    }
+
+    .warning-box {
+        padding: 20px;
+        background: #fff7f7;
+        border: 1px solid #fecaca;
+        border-radius: 10px;
+        color: #475569;
+        line-height: 1.7;
+    }
+
+    .warning-box strong {
+        color: #991b1b;
+    }
+
+    .ticket-details {
+        margin-top: 18px;
+        padding: 18px;
+        background: #fff;
+        border: 1px solid #e5eaf0;
+        border-radius: 8px;
+    }
+
+    .ticket-details p {
+        margin: 0 0 10px;
+        overflow-wrap: anywhere;
+    }
+
+    .ticket-details p:last-child {
+        margin-bottom: 0;
+    }
+
+    .detail-label {
+        color: #64748b;
+        font-weight: 600;
+    }
+
+    .warning-note {
+        margin-top: 12px;
+        color: #64748b;
+        font-size: 13px;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 30px;
+        padding-top: 25px;
+        border-top: 1px solid #e5eaf0;
+    }
+
+    .cancel-button,
+    .delete-button {
+        display: inline-block;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        text-align: center;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .cancel-button {
+        color: #475569;
+        background: #f1f5f9;
+    }
+
+    .cancel-button:hover {
+        background: #e2e8f0;
+    }
+
+    .delete-button {
+        color: #fff;
+        background: #dc2626;
+    }
+
+    .delete-button:hover {
+        background: #b91c1c;
+    }
+
+    @media (max-width: 600px) {
+        .form-header {
+            padding: 25px;
+        }
+
+        .form-header h1 {
+            font-size: 24px;
+        }
+
+        .form-body {
+            padding: 25px;
+        }
+
+        .form-actions > * {
+            flex: 1;
+            text-align: center;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="delete-repair-container">
+
+    <a href="{% url 'my_repair_tickets' %}" class="back-link">
+        &larr; Back to Repair Tickets
+    </a>
+
+    <section class="form-card">
+
+        <header class="form-header">
+            <h1>Delete Repair Ticket</h1>
+            <p>
+                Please review this repair ticket before confirming deletion.
+            </p>
+        </header>
+
+        <div class="form-body">
+
+            <div class="warning-box">
+                <p>
+                    Are you sure you want to delete
+                    <strong>Repair Ticket #{{ repair.ticket_number|default:repair.pk }}</strong>?
+                </p>
+
+                <div class="ticket-details">
+                    <p>
+                        <span class="detail-label">Customer:</span>
+                        {{ repair.customer_name }}
+                    </p>
+
+                    <p>
+                        <span class="detail-label">Device:</span>
+                        {{ repair.get_device_type_display }} {{ repair.device_model }}
+                    </p>
+
+                    <p>
+                        <span class="detail-label">Status:</span>
+                        {{ repair.get_status_display }}
+                    </p>
+
+                    <p>
+                        <span class="detail-label">Reported Issue:</span>
+                        {{ repair.reported_issue }}
+                    </p>
+                </div>
+
+                <p class="warning-note">
+                    This action cannot be undone. Make sure you have
+                    selected the correct repair ticket.
+                </p>
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="form-actions">
+                    <a href="{% url 'my_repair_tickets' %}"
+                       class="cancel-button">
+                        Cancel
+                    </a>
+
+                    <button type="submit" class="delete-button">
+                        Confirm Delete
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </section>
+</div>
+{% endblock %}

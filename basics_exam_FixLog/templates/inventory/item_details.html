@@ -1,0 +1,401 @@
+{% extends 'base.html' %}
+
+{% block extra_css %}
+<style>
+    .details-container,
+    .details-container * {
+        font-family: Arial, sans-serif;
+        box-sizing: border-box;
+    }
+
+    .details-container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-bottom: 25px;
+        color: #2563eb;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .back-link:hover {
+        text-decoration: underline;
+    }
+
+    .details-card {
+        overflow: hidden;
+        background: #fff;
+        border: 1px solid #e5eaf0;
+        border-radius: 16px;
+        box-shadow: 0 8px 25px rgba(38, 52, 69, 0.05);
+    }
+
+    .details-header {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+        padding: 35px;
+        background: #eff6ff;
+        border-bottom: 1px solid #dbeafe;
+    }
+
+    .part-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100px;
+        height: 100px;
+        flex-shrink: 0;
+        border-radius: 18px;
+        background: #fff;
+        font-size: 48px;
+        box-shadow: 0 4px 15px rgba(38, 52, 69, 0.06);
+    }
+
+    .header-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .header-info h1 {
+        margin: 0 0 8px;
+        color: #263445;
+        font-size: 30px;
+        overflow-wrap: anywhere;
+    }
+
+    .sku-label {
+        margin: 0;
+        color: #64748b;
+        font-size: 14px;
+        overflow-wrap: anywhere;
+    }
+
+    .status {
+        display: inline-block;
+        margin-top: 12px;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .status-available {
+        color: #166534;
+        background: #dcfce7;
+    }
+
+    .status-low {
+        color: #92400e;
+        background: #fef3c7;
+    }
+
+    .status-out {
+        color: #991b1b;
+        background: #fee2e2;
+    }
+
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-left: auto;
+    }
+
+    .action-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 10px 15px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        white-space: nowrap;
+        transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .action-button:hover {
+        transform: translateY(-1px);
+    }
+
+    .edit-button {
+        color: #1d4ed8;
+        background: #dbeafe;
+        border: 1px solid #bfdbfe;
+    }
+
+    .edit-button:hover {
+        background: #bfdbfe;
+    }
+
+    .delete-button {
+        color: #b91c1c;
+        background: #fee2e2;
+        border: 1px solid #fecaca;
+    }
+
+    .delete-button:hover {
+        background: #fecaca;
+    }
+
+    .details-body {
+        padding: 35px;
+    }
+
+    .section-title {
+        margin: 0 0 20px;
+        color: #263445;
+        font-size: 20px;
+    }
+
+    .description {
+        margin: 0 0 30px;
+        color: #64748b;
+        font-size: 15px;
+        line-height: 1.8;
+        overflow-wrap: anywhere;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+    }
+
+    .info-item {
+        min-width: 0;
+        padding: 20px;
+        background: #f8fafc;
+        border: 1px solid #edf0f4;
+        border-radius: 10px;
+    }
+
+    .info-label {
+        display: block;
+        margin-bottom: 7px;
+        color: #8491a2;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .info-value {
+        color: #263445;
+        font-size: 16px;
+        font-weight: 600;
+        overflow-wrap: anywhere;
+    }
+
+    .price-value {
+        color: #2563eb;
+        font-size: 24px;
+    }
+
+    .details-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        flex-wrap: wrap;
+        padding: 25px 35px;
+        background: #f8fafc;
+        border-top: 1px solid #e5eaf0;
+    }
+
+    .date-added {
+        color: #8491a2;
+        font-size: 13px;
+    }
+
+    .back-button {
+        display: inline-block;
+        padding: 11px 18px;
+        background: #2563eb;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        transition: background 0.2s ease;
+    }
+
+    .back-button:hover {
+        background: #1d4ed8;
+    }
+
+    @media (max-width: 800px) {
+        .details-header {
+            flex-wrap: wrap;
+            padding: 25px;
+        }
+
+        .header-actions {
+            width: 100%;
+            margin-left: 0;
+        }
+    }
+
+    @media (max-width: 650px) {
+        .details-header {
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 25px;
+        }
+
+        .header-info {
+            width: 100%;
+        }
+
+        .header-info h1 {
+            font-size: 25px;
+        }
+
+        .header-actions {
+            width: 100%;
+        }
+
+        .action-button {
+            flex: 1;
+        }
+
+        .details-body {
+            padding: 25px;
+        }
+
+        .info-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .details-footer {
+            padding: 20px 25px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="details-container">
+    <a href="{% url 'inventory_list' %}" class="back-link">
+        ← Back to Inventory
+    </a>
+
+    <article class="details-card">
+        <div class="details-header">
+            <div class="part-icon">
+                {% if item.compatible_devices == "PCS" %}
+                    💻
+                {% elif item.compatible_devices == "MOBILE_DEVICES" %}
+                    📱
+                {% elif item.compatible_devices == "GAME_CONSOLES" %}
+                    🎮
+                {% elif item.compatible_devices == "TVS" %}
+                    🖥️
+                {% elif item.compatible_devices == "NETWORKING" %}
+                    🌐
+                {% elif item.compatible_devices == "GENERAL_ELECTRONICS" %}
+                    🔧
+                {% endif %}
+            </div>
+
+            <div class="header-info">
+                <h1>{{ item.name }}</h1>
+                <p class="sku-label">SKU: {{ item.sku_number }}</p>
+
+                {% if item.quantity <= 0 %}
+                    <span class="status status-out">Out of stock</span>
+                {% elif item.quantity <= 5 %}
+                    <span class="status status-low">Low stock</span>
+                {% else %}
+                    <span class="status status-available">In stock</span>
+                {% endif %}
+            </div>
+
+            <div class="header-actions">
+                <a
+                    href="{% url 'item_edit' item.pk %}"
+                    class="action-button edit-button"
+                >
+                    ✏️ Edit
+                </a>
+
+                <a
+                    href="{% url 'item_delete' item.pk %}"
+                    class="action-button delete-button"
+                >
+                    🗑️ Delete
+                </a>
+            </div>
+        </div>
+
+        <div class="details-body">
+            <h2 class="section-title">Description</h2>
+
+            <p class="description">{{ item.description }}</p>
+
+            <h2 class="section-title">Inventory Information</h2>
+
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-label">Part Name</span>
+                    <span class="info-value">{{ item.name }}</span>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-label">SKU Number</span>
+                    <span class="info-value">{{ item.sku_number }}</span>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-label">Price</span>
+                    <span class="info-value price-value">
+                        €{{ item.price|floatformat:2 }}
+                    </span>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-label">Available Quantity</span>
+                    <span class="info-value">{{ item.quantity }} units</span>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-label">Compatible Devices</span>
+                    <span class="info-value">
+                        {{ item.get_compatible_devices_display }}
+                    </span>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-label">Stock Status</span>
+                    <span class="info-value">
+                        {% if item.quantity <= 0 %}
+                            Out of stock
+                        {% elif item.quantity <= 5 %}
+                            Low stock
+                        {% else %}
+                            In stock
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="details-footer">
+            <span class="date-added">
+                Inventory record #{{ item.pk }}
+            </span>
+
+            <a href="{% url 'inventory_list' %}" class="back-button">
+                Back to Inventory
+            </a>
+        </div>
+    </article>
+</div>
+{% endblock %}
