@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block title %}404 - Page Not Found | FixLog{% endblock %}
+
+{% block content %}
+<style>
+    .error-page {
+        min-height: 65vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 20px;
+        text-align: center;
+    }
+
+    .error-container {
+        max-width: 600px;
+        width: 100%;
+    }
+
+    .error-illustration {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 25px;
+        width: 180px;
+        height: 150px;
+        background: #eef1f5;
+        border-radius: 24px;
+    }
+
+    .error-code {
+        font-size: 76px;
+        font-weight: 800;
+        line-height: 1;
+        color: #667085;
+        letter-spacing: -4px;
+    }
+
+    .error-wrench {
+        position: absolute;
+        top: -17px;
+        right: -18px;
+        font-size: 42px;
+        transform: rotate(-35deg);
+    }
+
+    .error-gear {
+        position: absolute;
+        bottom: -13px;
+        left: -20px;
+        font-size: 42px;
+        color: #8492a6;
+    }
+
+    .error-title {
+        color: #344054;
+        font-size: 30px;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+    .error-message {
+        color: #7b8493;
+        font-size: 16px;
+        line-height: 1.8;
+        margin: 0 auto 28px;
+        max-width: 450px;
+    }
+
+    .error-smiley {
+        display: inline-block;
+        color: #8492a6;
+        font-weight: 600;
+        margin-left: 5px;
+    }
+
+    .error-actions {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .error-button {
+        display: inline-block;
+        padding: 12px 22px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        transition: background-color 0.2s ease,
+                    transform 0.2s ease;
+    }
+
+    .error-button-primary {
+        background: #344b64;
+        color: #ffffff;
+    }
+
+    .error-button-primary:hover {
+        background: #26394e;
+        transform: translateY(-2px);
+    }
+
+    .error-button-secondary {
+        border: 1px solid #d0d5dd;
+        color: #475467;
+        background: #ffffff;
+    }
+
+    .error-button-secondary:hover {
+        background: #f2f4f7;
+    }
+
+    @media (max-width: 480px) {
+        .error-title {
+            font-size: 25px;
+        }
+
+        .error-code {
+            font-size: 64px;
+        }
+
+        .error-illustration {
+            width: 155px;
+            height: 130px;
+        }
+    }
+</style>
+
+<section class="error-page">
+    <div class="error-container">
+
+        <div class="error-illustration">
+            <span class="error-code">404</span>
+            <span class="error-wrench" aria-hidden="true">🔧</span>
+            <span class="error-gear" aria-hidden="true">⚙</span>
+        </div>
+
+        <h1 class="error-title">
+            Oops! Page not found
+            <span class="error-smiley">:)</span>
+        </h1>
+
+        <p class="error-message">
+            Looks like this page needs a little repair.
+            The link may be broken, or the page might have
+            moved to another location.
+            Don't worry, we'll help you get back on track.
+        </p>
+
+        <div class="error-actions">
+            <a href="/" class="error-button error-button-primary">
+                &#8592; Back to Home
+            </a>
+
+            <a href="javascript:history.back()"
+               class="error-button error-button-secondary">
+                Go Back
+            </a>
+        </div>
+
+    </div>
+</section>
+{% endblock %}
